@@ -80,4 +80,9 @@ public interface BlogInterfaceConfig {
      * 获取话题微博
      */
     String TRENDS_STATUSES = "https://api.weibo.com/2/search/topics.json";
+
+    /**
+     * 发布一条文字微博
+     */
+    String UPDATE_STATUSES = "https://api.weibo.com/2/statuses/update.json";
 }

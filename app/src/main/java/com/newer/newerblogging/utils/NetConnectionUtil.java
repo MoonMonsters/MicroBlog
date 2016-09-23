@@ -57,26 +57,6 @@ public class NetConnectionUtil {
     }
 
     /**
-     * 通过网络获取微博接口数据,该方法可任意调用
-     *
-     * @param url         网址
-     * @param netCallback 回调方法
-     */
-    public static void netFromGetWeiboData(String url, final NetCallback netCallback) {
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(jsonObject.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(volleyError.getMessage());
-            }
-        }));
-    }
-
-    /**
      * 获得微博数据
      *
      * @param context     上下文对象
@@ -89,18 +69,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.STATUES_FRIENDS_TIMELINE,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 id_command, id);
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url,
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(jsonObject.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback, url,Request.Method.GET);
     }
 
     /**
@@ -115,17 +84,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.ATTITUDES_DESTROY,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 BlogInterfaceConfig.ID, idStr);
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(Config.SUCCESS);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback,url,Request.Method.POST);
     }
 
     /**
@@ -140,18 +99,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.ATTITUDES_CREATE,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 BlogInterfaceConfig.ID, idStr);
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(Config.SUCCESS);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                LoggerUtil.i("ATTITUDES", volleyError.toString());
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback,url,Request.Method.POST);
     }
 
     /**
@@ -175,17 +123,7 @@ public class NetConnectionUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(Config.SUCCESS);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback,url,Request.Method.POST);
     }
 
     /**
@@ -200,17 +138,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.FAVORITES_CREATE,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 BlogInterfaceConfig.ID, idStr);
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(Config.SUCCESS);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
 
     /**
@@ -225,17 +153,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.FAVORITES_DESTROY,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 BlogInterfaceConfig.ID, idStr);
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(Config.SUCCESS);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
 
     /**
@@ -260,17 +178,7 @@ public class NetConnectionUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(Config.SUCCESS);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback,url, Request.Method.POST);
 
     }
 
@@ -296,18 +204,7 @@ public class NetConnectionUtil {
                 "page", page,
                 "filter_by_author", filter_by_author
         );
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        netCallback.doSuccess(jsonObject.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
 
     /**
@@ -323,18 +220,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.STATUES_PUBLIC_TIMELINE,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 id_command, id);
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url,
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                netCallback.doSuccess(jsonObject.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                netCallback.doFail(Config.FAIL);
-            }
-        }));
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
 
     /**
@@ -362,18 +248,7 @@ public class NetConnectionUtil {
                 u,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken());
 
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        netCallback.doSuccess(jsonObject.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                LoggerUtil.i("TRENDS", "error");
-            }
-        }));
+        addRequestQueueToTransData(netCallback,url, Request.Method.GET);
     }
 
     /**
@@ -394,11 +269,45 @@ public class NetConnectionUtil {
                 "count", count,
                 "page", page
         );
-        mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
+    }
+
+    /**
+     * 发布一条新的微博
+     * @param context 上下文对象
+     * @param status 发布的微博内容
+     * @param netCallback 回调方法
+     */
+    public static void netToUpdateStatus(Context context, String status, NetCallback netCallback){
+        try {
+            String url = String.format("%s?%s=%s&%s=%s",
+                    BlogInterfaceConfig.UPDATE_STATUSES,
+                    BlogInterfaceConfig.ACCESS_TOKEN,AccessTokenKeeper.readAccessToken(context).getToken(),
+                    "status",URLEncoder.encode(status,"UTF-8"));
+
+            addRequestQueueToTransData(netCallback,url, Request.Method.POST);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 所有的方法中，这个部分都是相同的，所以提取了出来
+     * @param netCallback 回调方法
+     * @param url 连接网络的url，每个方法中都不相同
+     */
+    private static void addRequestQueueToTransData(final NetCallback netCallback, String url,int command) {
+
+        mRequestQueue.add(new JsonObjectRequest(command, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        netCallback.doSuccess(jsonObject.toString());
+                        if(jsonObject != null){
+                            netCallback.doSuccess(jsonObject.toString());
+                        }else{
+                            netCallback.doSuccess(Config.SUCCESS);
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -408,6 +317,9 @@ public class NetConnectionUtil {
         }));
     }
 
+    /**
+     * 接口类，回调方法
+     */
     public interface NetCallback {
         void doSuccess(String data);
 

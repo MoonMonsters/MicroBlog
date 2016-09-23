@@ -39,7 +39,8 @@
             android:label="@string/string_repost"
             android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.CreateCommentActivity" />
-        <activity android:name=".activity.TrendsActivity"></activity>
+        <activity android:name=".activity.TrendsActivity" />
+        <activity android:name=".activity.CreateWeiboActivity"></activity>
     </application>
 
 </manifest>

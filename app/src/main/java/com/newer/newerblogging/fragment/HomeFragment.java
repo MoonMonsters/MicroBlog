@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.newer.newerblogging.R;
+import com.newer.newerblogging.activity.CreateWeiboActivity;
 import com.newer.newerblogging.adapter.MicroAdapter;
 import com.newer.newerblogging.base.BaseFragment;
 import com.newer.newerblogging.bean.microblog.AllMicroblog;
@@ -147,7 +148,8 @@ public class HomeFragment extends BaseFragment {
         fabtnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), CreateWeiboActivity.class);
+                startActivity(intent);
             }
         });
     }
