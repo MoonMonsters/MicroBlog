@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+    <com.newer.newerblogging.view.HeadPicView
+        android:id="@+id/hpv_micro_comment_header"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:divider="@drawable/ic_top_line"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_micro_comment_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.5"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_micro_comment_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.5"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_micro_comment_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:autoLink="web"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:background="@drawable/ic_top_line"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+
+</LinearLayout>

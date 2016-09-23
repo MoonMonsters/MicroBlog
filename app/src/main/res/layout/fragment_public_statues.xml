@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.newer.newerblogging.fragment.PublicStatuesFragment">
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/ptrlv_public_statues_content"
+        android:layout_width="match_parent"
+        android:divider="@drawable/ic_top_line"
+        android:dividerHeight="8dp"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

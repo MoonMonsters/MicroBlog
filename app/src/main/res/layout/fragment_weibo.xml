@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.newer.newerblogging.fragment.WeiboFragment">
+
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:layout_alignParentBottom="true"
+        app:bnbBackgroundStyle="background_style_ripple"
+        android:id="@+id/bnb_weibo_tab"
+        app:bnbMode="mode_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/frame_weibo_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bnb_weibo_tab" />
+
+</RelativeLayout>

@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">NewerBlogging</string>
+    <string name="app_name">新浪微博</string>
+
+
+    <string-array name="main_fragments_name">
+        <item>主页</item>
+        <item>联系人</item>
+        <item>热门</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_nav_notify">通知</string>
+    <string name="menu_nav_message">私信</string>
+    <string name="menu_nav_favorite">收藏</string>
+    <string name="string_repost_shared">说说分享心得...</string>
+    <string name="str_repost_comment_together">同时评论</string>
+    <string name="string_cancel">取消</string>
+    <string name="string_send">发送</string>
+    <string name="string_repost">转发</string>
+    <string name="string_create_comment">发表评论...</string>
+
+
 </resources>

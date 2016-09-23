@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_micro_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:autoLink="web"
+        android:lineSpacingMultiplier="1.2"
+        android:text="原内容"
+        android:textSize="16sp" />
+
+    <com.newer.newerblogging.view.PicGridView
+        android:id="@+id/pgv_micro_pics"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:numColumns="3" />
+
+    <RelativeLayout
+        android:id="@+id/layout_micro_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:id="@+id/iv_micro_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/ic_like_cancel" />
+
+        <TextView
+            android:id="@+id/tv_micro_praise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:drawableLeft="@drawable/ic_praise_cancel"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="111" />
+
+        <TextView
+            android:id="@+id/tv_micro_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tv_micro_praise"
+            android:drawableLeft="@drawable/drawable_comment"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="111" />
+
+        <TextView
+            android:id="@+id/tv_micro_repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tv_micro_comment"
+            android:drawableLeft="@drawable/drawable_repeat"
+            android:padding="2dp"
+            android:gravity="center" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:title="微博"
+        android:id="@+id/action_nav_blog"
+        app:showAsAction="ifRoom"
+        android:icon="@mipmap/ic_launcher"
+        />
+    <item
+        android:title="@string/menu_nav_notify"
+        android:id="@+id/action_nav_notify"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_nav_notify"
+        />
+    <item
+        android:title="@string/menu_nav_message"
+        android:id="@+id/action_nav_message"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_nav_message"
+        />
+
+    <item
+        android:title="@string/menu_nav_favorite"
+        android:id="@+id/action_nav_favorite"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_nav_favorite"
+        />
+
+</menu>

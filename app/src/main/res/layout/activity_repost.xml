@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.newer.newerblogging.activity.RepostActivity">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        app:counterEnabled="true"
+        app:counterMaxLength="140"
+        android:layout_height="wrap_content" >
+        <EditText
+            android:id="@+id/et_repost_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="1"
+            android:hint="@string/string_repost_shared"
+            android:maxLength="140"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|left"
+        android:layout_height="wrap_content">
+    <CheckBox
+        android:gravity="left"
+        android:id="@+id/cb_repost_choose"
+        android:layout_width="wrap_content"
+        android:foregroundGravity="center"
+        android:textAlignment="center"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="@string/str_repost_comment_together"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

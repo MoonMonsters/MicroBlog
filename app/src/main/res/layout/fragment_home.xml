@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.newer.newerblogging.fragment.HomeFragment">
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/prlv_home_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/ic_top_line"
+        android:dividerHeight="8dp"
+        android:focusable="false" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabtn_home"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        android:src="@mipmap/ic_launcher"
+        app:fabSize="mini"
+        app:backgroundTint="@color/colorPrimary"
+        android:elevation="30dp"
+        />
+
+</FrameLayout>

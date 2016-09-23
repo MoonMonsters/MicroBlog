@@ -2,19 +2,44 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.newer.newerblogging">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".application.NewerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MicroblogOauthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name=".activity.ImgDetailActivity"
+            android:theme="@style/ImgDetailTheme" />
+        <activity android:name=".activity.SingleWeiboDetailActivity" />
+        <activity android:name=".activity.RepostWeiboDetailActivity" />
+        <activity
+            android:name=".activity.RepostActivity"
+            android:label="@string/string_repost"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity android:name=".activity.CreateCommentActivity" />
+        <activity android:name=".activity.TrendsActivity"></activity>
     </application>
 
 </manifest>
