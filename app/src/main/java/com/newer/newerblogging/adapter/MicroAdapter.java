@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.newer.newerblogging.R;
 import com.newer.newerblogging.activity.CreateCommentActivity;
@@ -129,7 +133,7 @@ public class MicroAdapter extends BaseAdapter {
             bindCommonData((SingleMicroblog) obj);
             bindBottomData((SingleMicroblog) obj);
             bindListener((SingleMicroblog) obj);
-            bottomBtnListener((SingleMicroblog)obj);
+            bottomBtnListener((SingleMicroblog) obj);
         }
 
         /**
@@ -195,7 +199,6 @@ public class MicroAdapter extends BaseAdapter {
          * 绑定控件的监听器
          */
         public void bindListener(final SingleMicroblog obj) {
-
 
             tvMicroContent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -273,6 +276,30 @@ public class MicroAdapter extends BaseAdapter {
                     mContext.startActivity(intent);
                 }
             });
+
+            ivMicroMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    PopupMenu popupMenu = new PopupMenu(mContext, v);
+                    popupMenu.inflate(R.menu.menu_btn_more);
+                    popupMenu.setGravity(Gravity.CENTER_HORIZONTAL);
+                    popupMenu.show();
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            // TODO
+                            if (item.getItemId() == R.id.action_hide_one) {
+                                Toast.makeText(mContext, "屏蔽这条微博", Toast.LENGTH_SHORT).show();
+                            } else if (item.getItemId() == R.id.action_hide_all) {
+                                Toast.makeText(mContext, "屏蔽此人微博", Toast.LENGTH_SHORT).show();
+                            }
+
+                            return true;
+                        }
+                    });
+                }
+            });
         }
 
         public void takeDataToDetailActivity(SingleMicroblog obj) {
@@ -329,6 +356,7 @@ public class MicroAdapter extends BaseAdapter {
          *
          * @param obj 微博对象
          */
+        @Override
         public void bindListener(final SingleMicroblog obj) {
             //原微博的内容
             tvMicroContent.setOnClickListener(new View.OnClickListener() {

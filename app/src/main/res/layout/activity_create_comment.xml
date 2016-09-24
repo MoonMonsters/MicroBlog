@@ -17,6 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="1"
+            android:gravity="start|top"
+            android:maxLines="5"
             android:hint="@string/string_create_comment"
             android:maxLength="140"
             />

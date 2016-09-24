@@ -44,8 +44,6 @@ public class WeiboFragment extends BaseFragment {
     private ContactsFragment mContactsFragment;
     private TopicalFragment mTopicalFragment;
 
-    private boolean isAdd = false;
-
     @Override
     public void initData() {
 
@@ -61,20 +59,16 @@ public class WeiboFragment extends BaseFragment {
                 .setFirstSelectedPosition(0)
                 .initialise();  //重新绘制
 
-        if (!isAdd) {
-            mHomeFragment = (HomeFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_HOME);
-            mContactsFragment = (ContactsFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_CONTACTS);
-            mTopicalFragment = (TopicalFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_TOPICAL);
+        mHomeFragment = (HomeFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_HOME);
+        mContactsFragment = (ContactsFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_CONTACTS);
+        mTopicalFragment = (TopicalFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_TOPICAL);
 
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.frame_weibo_content, mHomeFragment)
-                    .add(R.id.frame_weibo_content, mContactsFragment)
-                    .add(R.id.frame_weibo_content, mTopicalFragment)
-                    .commit();
-            isAdd = true;
-        }
-
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.frame_weibo_content, mHomeFragment)
+                .add(R.id.frame_weibo_content, mContactsFragment)
+                .add(R.id.frame_weibo_content, mTopicalFragment)
+                .commit();
 
         //设置默认项
         showHomeFragment();
