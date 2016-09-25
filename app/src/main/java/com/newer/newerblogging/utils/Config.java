@@ -43,6 +43,12 @@ public interface Config {
      * 更改TrendsActivity中的控件状态
      */
     String ACTION_TRENDS_ACTIVITY = "action_trends_activity";
+
+    /**
+     * 更改UserHomeFragment中的控件状态
+     */
+    String ACTION_USER_HOME_FRAGMENT = "action_user_home_fragment";
+
     /**
      * 需要更改数据的位置
      */
@@ -96,4 +102,9 @@ public interface Config {
      * 话题字段，传递数据
      */
     String EXTRA_TREND = "extra_trend";
+
+    /**
+     * 传递User数据
+     */
+    String EXTRA_USER_ID = "extra_user_id";
 }

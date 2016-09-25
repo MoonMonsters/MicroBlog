@@ -7,6 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.newer.newerblogging.application.NewerApplication;
@@ -69,7 +70,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.STATUES_FRIENDS_TIMELINE,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 id_command, id);
-        addRequestQueueToTransData(netCallback, url,Request.Method.GET);
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
 
     /**
@@ -84,7 +85,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.ATTITUDES_DESTROY,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 BlogInterfaceConfig.ID, idStr);
-        addRequestQueueToTransData(netCallback,url,Request.Method.POST);
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
 
     /**
@@ -99,7 +100,7 @@ public class NetConnectionUtil {
                 BlogInterfaceConfig.ATTITUDES_CREATE,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
                 BlogInterfaceConfig.ID, idStr);
-        addRequestQueueToTransData(netCallback,url,Request.Method.POST);
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
 
     /**
@@ -123,7 +124,7 @@ public class NetConnectionUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        addRequestQueueToTransData(netCallback,url,Request.Method.POST);
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
 
     /**
@@ -178,7 +179,7 @@ public class NetConnectionUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        addRequestQueueToTransData(netCallback,url, Request.Method.POST);
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
 
     }
 
@@ -248,7 +249,7 @@ public class NetConnectionUtil {
                 u,
                 BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken());
 
-        addRequestQueueToTransData(netCallback,url, Request.Method.GET);
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
 
     /**
@@ -274,38 +275,98 @@ public class NetConnectionUtil {
 
     /**
      * 发布一条新的微博
-     * @param context 上下文对象
-     * @param status 发布的微博内容
+     *
+     * @param context     上下文对象
+     * @param status      发布的微博内容
      * @param netCallback 回调方法
      */
-    public static void netToUpdateStatus(Context context, String status, NetCallback netCallback){
+    public static void netToUpdateStatus(Context context, String status, NetCallback netCallback) {
         try {
             String url = String.format("%s?%s=%s&%s=%s",
                     BlogInterfaceConfig.UPDATE_STATUSES,
-                    BlogInterfaceConfig.ACCESS_TOKEN,AccessTokenKeeper.readAccessToken(context).getToken(),
-                    "status",URLEncoder.encode(status,"UTF-8"));
+                    BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                    "status", URLEncoder.encode(status, "UTF-8"));
 
-            addRequestQueueToTransData(netCallback,url, Request.Method.POST);
+            addRequestQueueToTransData(netCallback, url, Request.Method.POST);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 获得用户数据
+     *
+     * @param context     上下文对象
+     * @param userId      用户id
+     * @param netCallback 回调方法
+     */
+    public static void netToShowUser(Context context, String userId, NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s",
+                BlogInterfaceConfig.USERS_SHOW,
+                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                "uid", userId);
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
+    }
+
+    /**
+     * 通过用户id获得粉丝数和关注数等
+     *
+     * @param context     上下文对象
+     * @param userId      用户id
+     * @param netCallback 回调方法
+     */
+    public static void netToUsersCounts(Context context, String userId, final NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s",
+                BlogInterfaceConfig.USERS_COUNTS,
+                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                "uids", userId);
+        mRequestQueue.add(new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                netCallback.doSuccess(s);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }));
+    }
+
+    /**
+     * 获得某用户的微博列表
+     *
+     * @param context     上下文对象
+     * @param uid         用户id
+     * @param max_id      微博id
+     * @param netCallback 回调方法
+     */
+    public static void netToUserTimeLineStatuses(Context context, String uid, String max_id,
+                                                 NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s&%s=%s",
+                BlogInterfaceConfig.STATUSES_USER_TIMELINE,
+                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                "uid", uid,
+                "max_id", max_id
+        );
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
+    }
 
     /**
      * 所有的方法中，这个部分都是相同的，所以提取了出来
+     *
      * @param netCallback 回调方法
-     * @param url 连接网络的url，每个方法中都不相同
+     * @param url         连接网络的url，每个方法中都不相同
      */
-    private static void addRequestQueueToTransData(final NetCallback netCallback, String url,int command) {
+    private static void addRequestQueueToTransData(final NetCallback netCallback, String url, int command) {
 
         mRequestQueue.add(new JsonObjectRequest(command, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        if(jsonObject != null){
+                        if (jsonObject != null) {
                             netCallback.doSuccess(jsonObject.toString());
-                        }else{
+                        } else {
                             netCallback.doSuccess(Config.SUCCESS);
                         }
                     }

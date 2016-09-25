@@ -40,7 +40,10 @@
             android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.CreateCommentActivity" />
         <activity android:name=".activity.TrendsActivity" />
-        <activity android:name=".activity.CreateWeiboActivity"></activity>
+        <activity android:name=".activity.CreateWeiboActivity" />
+        <activity
+            android:name=".activity.UserHomeActivity"
+            android:theme="@style/MainTheme" />
     </application>
 
 </manifest>

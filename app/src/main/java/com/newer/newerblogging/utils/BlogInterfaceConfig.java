@@ -67,13 +67,19 @@ public interface BlogInterfaceConfig {
      */
     String STATUES_PUBLIC_TIMELINE = "https://api.weibo.com/2/statuses/public_timeline.json";
 
-    /** 每日话题排行 */
+    /**
+     * 每日话题排行
+     */
     String TRENDS_DAILY = "https://api.weibo.com/2/trends/daily.json";
 
-    /** 每小时话题排行 */
+    /**
+     * 每小时话题排行
+     */
     String TRENDS_HOURLY = "https://api.weibo.com/2/trends/hourly.json";
 
-    /** 每周话题排行版 */
+    /**
+     * 每周话题排行版
+     */
     String TRENDS_WEEKLY = "https://api.weibo.com/2/trends/weekly.json";
 
     /**
@@ -85,4 +91,13 @@ public interface BlogInterfaceConfig {
      * 发布一条文字微博
      */
     String UPDATE_STATUSES = "https://api.weibo.com/2/statuses/update.json";
+
+    /**
+     * 获取某个用户最新发表的微博列表
+     */
+    String STATUSES_USER_TIMELINE = "https://api.weibo.com/2/statuses/user_timeline.json";
+    /**
+     * 批量获取用户的粉丝数、关注数、微博数
+     */
+    String USERS_COUNTS = "https://api.weibo.com/2/users/counts.json";
 }

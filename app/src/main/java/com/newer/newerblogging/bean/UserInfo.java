@@ -1,6 +1,7 @@
 package com.newer.newerblogging.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Chalmers on 2016-09-12 10:07.
@@ -10,44 +11,9 @@ import java.io.Serializable;
 /**
  * 存储的数据，可以用来在主页中显示
  */
-public class UserInfo implements Serializable{
-    /*
-    "id": 1404376560,
-    "screen_name": "zaku",
-    "name": "zaku",
-    "province": "11",
-    "city": "5",
-    "location": "北京 朝阳区",
-    "description": "人生五十年，乃如梦如幻；有生斯有死，壮士复何憾。",
-    "url": "http://blog.sina.com.cn/zaku",
-    "profile_image_url": "http://tp1.sinaimg.cn/1404376560/50/0/1",
-    "domain": "zaku",
-    "gender": "m",
-    "followers_count": 1204,
-    "friends_count": 447,
-    "statuses_count": 2908,
-    "favourites_count": 0,
-    "created_at": "Fri Aug 28 00:00:00 +0800 2009",
-    "following": false,
-    "allow_all_act_msg": false,
-    "geo_enabled": true,
-    "verified": false,
-
-    "allow_all_comment": true,
-    "avatar_large": "http://tp1.sinaimg.cn/1404376560/180/0/1",
-    "verified_reason": "",
-    "follow_me": false,
-    "online_status": 0,
-    "bi_followers_count": 215
-    "allow_all_comment": true,
-    "avatar_large": "http://tp1.sinaimg.cn/1404376560/180/0/1",
-    "verified_reason": "",
-    "follow_me": false,
-    "online_status": 0,
-    "bi_followers_count": 215
-     */
+public class UserInfo implements Parcelable{
     /** 用户UID */
-    private int id;
+    private String idstr;
     /** 用户昵称 */
     private String screen_name;
     /** 友好显示名称 */
@@ -100,19 +66,24 @@ public class UserInfo implements Serializable{
     private int online_status;
     /** 用户的互粉数 */
     private int bi_followers_count;
-
+    /** 高清头像 */
     private String avatar_hd;
+    /**  身份说明 */
+    private String ability_tags;
 
-    public UserInfo(int id, String screen_name, String name, String province,
+    public UserInfo(){}
+
+    public UserInfo(String idstr, String screen_name, String name, String province,
                     String city, String location, String description, String url,
-                    String profile_image_url, String domain, String gender,
-                    int followers_count, int friends_count, int statuses_count,
-                    int favourites_count, String created_at, boolean following,
-                    boolean allow_all_act_msg, boolean geo_enabled, boolean verified,
-                    boolean allow_all_comment, String avatar_large,
-                    String verified_reason, boolean follow_me, int online_status,
-                    int bi_followers_count, String avatar_hd, String cover_image_phone) {
-        this.id = id;
+                    String profile_image_url, String cover_image_phone, String domain,
+                    String gender, int followers_count, int friends_count,
+                    int statuses_count, int favourites_count, String created_at,
+                    boolean following, boolean allow_all_act_msg,
+                    boolean geo_enabled, boolean verified, boolean allow_all_comment,
+                    String avatar_large, String verified_reason, boolean follow_me,
+                    int online_status, int bi_followers_count, String avatar_hd,
+                    String ability_tags) {
+        this.idstr = idstr;
         this.screen_name = screen_name;
         this.name = name;
         this.province = province;
@@ -121,6 +92,7 @@ public class UserInfo implements Serializable{
         this.description = description;
         this.url = url;
         this.profile_image_url = profile_image_url;
+        this.cover_image_phone = cover_image_phone;
         this.domain = domain;
         this.gender = gender;
         this.followers_count = followers_count;
@@ -139,17 +111,59 @@ public class UserInfo implements Serializable{
         this.online_status = online_status;
         this.bi_followers_count = bi_followers_count;
         this.avatar_hd = avatar_hd;
-        this.cover_image_phone = cover_image_phone;
+        this.ability_tags = ability_tags;
     }
 
-    public UserInfo(){}
-
-    public int getId() {
-        return id;
+    protected UserInfo(Parcel in) {
+        idstr = in.readString();
+        screen_name = in.readString();
+        name = in.readString();
+        province = in.readString();
+        city = in.readString();
+        location = in.readString();
+        description = in.readString();
+        url = in.readString();
+        profile_image_url = in.readString();
+        cover_image_phone = in.readString();
+        domain = in.readString();
+        gender = in.readString();
+        followers_count = in.readInt();
+        friends_count = in.readInt();
+        statuses_count = in.readInt();
+        favourites_count = in.readInt();
+        created_at = in.readString();
+        following = in.readByte() != 0;
+        allow_all_act_msg = in.readByte() != 0;
+        geo_enabled = in.readByte() != 0;
+        verified = in.readByte() != 0;
+        allow_all_comment = in.readByte() != 0;
+        avatar_large = in.readString();
+        verified_reason = in.readString();
+        follow_me = in.readByte() != 0;
+        online_status = in.readInt();
+        bi_followers_count = in.readInt();
+        avatar_hd = in.readString();
+        ability_tags = in.readString();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
+        @Override
+        public UserInfo createFromParcel(Parcel in) {
+            return new UserInfo(in);
+        }
+
+        @Override
+        public UserInfo[] newArray(int size) {
+            return new UserInfo[size];
+        }
+    };
+
+    public String getIdstr() {
+        return idstr;
+    }
+
+    public void setIdstr(String idstr) {
+        this.idstr = idstr;
     }
 
     public String getScreen_name() {
@@ -214,6 +228,14 @@ public class UserInfo implements Serializable{
 
     public void setProfile_image_url(String profile_image_url) {
         this.profile_image_url = profile_image_url;
+    }
+
+    public String getCover_image_phone() {
+        return cover_image_phone;
+    }
+
+    public void setCover_image_phone(String cover_image_phone) {
+        this.cover_image_phone = cover_image_phone;
     }
 
     public String getDomain() {
@@ -360,11 +382,84 @@ public class UserInfo implements Serializable{
         this.avatar_hd = avatar_hd;
     }
 
-    public String getCover_image_phone() {
-        return cover_image_phone;
+    public String getAbility_tags() {
+        return ability_tags;
     }
 
-    public void setCover_image_phone(String cover_image_phone) {
-        this.cover_image_phone = cover_image_phone;
+    public void setAbility_tags(String ability_tags) {
+        this.ability_tags = ability_tags;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "idstr='" + idstr + '\'' +
+                ", screen_name='" + screen_name + '\'' +
+                ", name='" + name + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", profile_image_url='" + profile_image_url + '\'' +
+                ", cover_image_phone='" + cover_image_phone + '\'' +
+                ", domain='" + domain + '\'' +
+                ", gender='" + gender + '\'' +
+                ", followers_count=" + followers_count +
+                ", friends_count=" + friends_count +
+                ", statuses_count=" + statuses_count +
+                ", favourites_count=" + favourites_count +
+                ", created_at='" + created_at + '\'' +
+                ", following=" + following +
+                ", allow_all_act_msg=" + allow_all_act_msg +
+                ", geo_enabled=" + geo_enabled +
+                ", verified=" + verified +
+                ", allow_all_comment=" + allow_all_comment +
+                ", avatar_large='" + avatar_large + '\'' +
+                ", verified_reason='" + verified_reason + '\'' +
+                ", follow_me=" + follow_me +
+                ", online_status=" + online_status +
+                ", bi_followers_count=" + bi_followers_count +
+                ", avatar_hd='" + avatar_hd + '\'' +
+                ", ability_tags='" + ability_tags + '\'' +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(idstr);
+        dest.writeString(screen_name);
+        dest.writeString(name);
+        dest.writeString(province);
+        dest.writeString(city);
+        dest.writeString(location);
+        dest.writeString(description);
+        dest.writeString(url);
+        dest.writeString(profile_image_url);
+        dest.writeString(cover_image_phone);
+        dest.writeString(domain);
+        dest.writeString(gender);
+        dest.writeInt(followers_count);
+        dest.writeInt(friends_count);
+        dest.writeInt(statuses_count);
+        dest.writeInt(favourites_count);
+        dest.writeString(created_at);
+        dest.writeByte((byte) (following ? 1 : 0));
+        dest.writeByte((byte) (allow_all_act_msg ? 1 : 0));
+        dest.writeByte((byte) (geo_enabled ? 1 : 0));
+        dest.writeByte((byte) (verified ? 1 : 0));
+        dest.writeByte((byte) (allow_all_comment ? 1 : 0));
+        dest.writeString(avatar_large);
+        dest.writeString(verified_reason);
+        dest.writeByte((byte) (follow_me ? 1 : 0));
+        dest.writeInt(online_status);
+        dest.writeInt(bi_followers_count);
+        dest.writeString(avatar_hd);
+        dest.writeString(ability_tags);
     }
 }

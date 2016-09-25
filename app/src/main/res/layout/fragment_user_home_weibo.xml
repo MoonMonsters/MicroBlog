@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.newer.newerblogging.fragment.UserHomeWeiboFragment">
+
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshListView-->
+        <!--android:id="@+id/ptrlv_user_home_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:divider="@drawable/ic_top_line"-->
+        <!--android:dividerHeight="8dp"-->
+        <!--android:focusable="false" />-->
+
+</FrameLayout>

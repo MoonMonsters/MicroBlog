@@ -21,6 +21,7 @@ import com.newer.newerblogging.activity.CreateCommentActivity;
 import com.newer.newerblogging.activity.RepostActivity;
 import com.newer.newerblogging.activity.RepostWeiboDetailActivity;
 import com.newer.newerblogging.activity.SingleWeiboDetailActivity;
+import com.newer.newerblogging.activity.UserHomeActivity;
 import com.newer.newerblogging.base.BaseViewHolder;
 import com.newer.newerblogging.bean.microblog.RetweetedStatus;
 import com.newer.newerblogging.bean.microblog.SingleMicroblog;
@@ -300,6 +301,16 @@ public class MicroAdapter extends BaseAdapter {
                     });
                 }
             });
+
+            // TODO
+            hpvMicroHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, UserHomeActivity.class);
+                    intent.putExtra(Config.EXTRA_USER_ID,obj.getUser().getIdstr());
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         public void takeDataToDetailActivity(SingleMicroblog obj) {
@@ -316,6 +327,7 @@ public class MicroAdapter extends BaseAdapter {
 
             mContext.startActivity(intent);
         }
+
     }
 
     /**
