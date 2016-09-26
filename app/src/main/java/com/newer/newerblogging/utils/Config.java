@@ -23,6 +23,12 @@ public interface Config {
      * HomeFragment的微博的收藏广播
      */
     String ACTION_HOME_FRAGMENT_LIKE = "action_home_fragment_like";
+
+    /**
+     * 删除微博广播
+     */
+    String ACTION_HOME_FRAGMENT_DELETE = "action_home_fragment_delete";
+
     /**
      * HomeFragment的微博的点赞广播 ，点赞数+1
      */
@@ -43,6 +49,15 @@ public interface Config {
      * 更改TrendsActivity中的控件状态
      */
     String ACTION_TRENDS_ACTIVITY = "action_trends_activity";
+    /**
+     * 更改FavoriteFragment的控件状态
+     */
+    String ACTION_FAVORITE_FRAGMENT = "action_favorite_fragment";
+
+    /**
+     * 更改FavoriteFragment中的收藏按钮状态
+     */
+    String ACTION_FAVORITE_FRAGMENT_LIKE = "action_favorite_fragment_like";
 
     /**
      * 更改UserHomeFragment中的控件状态
@@ -107,4 +122,17 @@ public interface Config {
      * 传递User数据
      */
     String EXTRA_USER_ID = "extra_user_id";
+
+    /**
+     * 用户关注人
+     */
+    String FRIEDNSHIP_FRIENDS = "friendship_friends";
+    /**
+     * 用户粉丝
+     */
+    String FRIENDSHIP_FOLLOWERS = "friendship_followers";
+    /**
+     * 用户互粉
+     */
+    String FRIENDSHIP_BILATERAL = "friendship_bilateral";
 }

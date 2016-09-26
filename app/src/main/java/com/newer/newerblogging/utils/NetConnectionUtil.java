@@ -38,7 +38,7 @@ public class NetConnectionUtil {
      */
     public static void netGetLocalUserInfo(final Context context, String userId) {
         String url = BlogInterfaceConfig.USERS_SHOW + "?" + BlogInterfaceConfig.ACCESS_TOKEN
-                + "=" + AccessTokenKeeper.readAccessToken(context).getToken()
+                + "=" + getToken(context)
                 + "&uid=" + userId;
 
         mRequestQueue.add(new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -68,7 +68,7 @@ public class NetConnectionUtil {
     public static void netToGetWeiboData(Context context, String id_command, String id, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.STATUES_FRIENDS_TIMELINE,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 id_command, id);
         addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
@@ -83,7 +83,7 @@ public class NetConnectionUtil {
     public static void netToDestroyAttitudes(Context context, String idStr, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.ATTITUDES_DESTROY,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 BlogInterfaceConfig.ID, idStr);
         addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
@@ -98,7 +98,7 @@ public class NetConnectionUtil {
     public static void netToCreateAttitudes(Context context, String idStr, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.ATTITUDES_CREATE,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 BlogInterfaceConfig.ID, idStr);
         addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
@@ -116,7 +116,7 @@ public class NetConnectionUtil {
         try {
             url = String.format("%s?%s=%s&id=%s&status=%s&is_comment=%s",
                     BlogInterfaceConfig.STATUSES_REPOST,
-                    BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                    BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                     id,
                     //编码
                     URLEncoder.encode(status, "UTF-8"),
@@ -137,7 +137,7 @@ public class NetConnectionUtil {
     public static void netToCreateFavorites(Context context, String idStr, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.FAVORITES_CREATE,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 BlogInterfaceConfig.ID, idStr);
         addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
@@ -152,7 +152,7 @@ public class NetConnectionUtil {
     public static void netToDestroyFavorites(Context context, String idStr, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.FAVORITES_DESTROY,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 BlogInterfaceConfig.ID, idStr);
         addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
@@ -172,7 +172,7 @@ public class NetConnectionUtil {
         try {
             url = String.format("%s?%s=%s&%s=%s&%s=%s&%s=%s",
                     BlogInterfaceConfig.COMMENTS_CREATE,
-                    BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                    BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                     "id", id,
                     "comment", URLEncoder.encode(comment, "UTF-8"),
                     "comment_ori", comment_ori);
@@ -198,7 +198,7 @@ public class NetConnectionUtil {
                                          int count, int page, int filter_by_author, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
                 BlogInterfaceConfig.COMMENTS_SHOW,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 BlogInterfaceConfig.ID, idStr,
                 BlogInterfaceConfig.MAX_ID, id_comment,
                 "count", count,
@@ -219,7 +219,7 @@ public class NetConnectionUtil {
     public static void netToPublicTimelineStatues(Context context, String id_command, String id, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.STATUES_PUBLIC_TIMELINE,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 id_command, id);
         addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
@@ -247,7 +247,7 @@ public class NetConnectionUtil {
 
         String url = String.format("%s?%s=%s",
                 u,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken());
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context));
 
         addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
@@ -265,7 +265,7 @@ public class NetConnectionUtil {
                                            int page, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s&%s=%s&%s=%s",
                 BlogInterfaceConfig.TRENDS_STATUSES,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 "q", trend,
                 "count", count,
                 "page", page
@@ -284,7 +284,7 @@ public class NetConnectionUtil {
         try {
             String url = String.format("%s?%s=%s&%s=%s",
                     BlogInterfaceConfig.UPDATE_STATUSES,
-                    BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                    BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                     "status", URLEncoder.encode(status, "UTF-8"));
 
             addRequestQueueToTransData(netCallback, url, Request.Method.POST);
@@ -303,7 +303,7 @@ public class NetConnectionUtil {
     public static void netToShowUser(Context context, String userId, NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.USERS_SHOW,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 "uid", userId);
         addRequestQueueToTransData(netCallback, url, Request.Method.GET);
     }
@@ -318,7 +318,7 @@ public class NetConnectionUtil {
     public static void netToUsersCounts(Context context, String userId, final NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s",
                 BlogInterfaceConfig.USERS_COUNTS,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 "uids", userId);
         mRequestQueue.add(new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -345,11 +345,114 @@ public class NetConnectionUtil {
                                                  NetCallback netCallback) {
         String url = String.format("%s?%s=%s&%s=%s&%s=%s",
                 BlogInterfaceConfig.STATUSES_USER_TIMELINE,
-                BlogInterfaceConfig.ACCESS_TOKEN, AccessTokenKeeper.readAccessToken(context).getToken(),
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
                 "uid", uid,
                 "max_id", max_id
         );
+        LoggerUtil.i("USERHOME", url);
         addRequestQueueToTransData(netCallback, url, Request.Method.GET);
+    }
+
+    /**
+     * 关注一个用户
+     *
+     * @param context     上下文对象
+     * @param uid         用户id
+     * @param netCallback 回调方法
+     */
+    public static void netToCreateFriendShips(Context context, String uid, NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s",
+                BlogInterfaceConfig.CREATE_FRIENDSHIPS,
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
+                "uid", uid
+        );
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
+    }
+
+    /**
+     * 取消关注一个用户
+     *
+     * @param context     上下文对象
+     * @param uid         用户id
+     * @param netCallback 回调方法
+     */
+    public static void netToDestroyFriendShips(Context context, String uid, NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s",
+                BlogInterfaceConfig.DESTROY_FRIENDSHIPS,
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
+                "uid", uid
+        );
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
+    }
+
+    /**
+     * 获得登录用户收藏的微博
+     *
+     * @param context     上下文对象
+     * @param count       每次接收的数据个数
+     * @param page        页码
+     * @param netCallback 回调方法
+     */
+    public static void netToUserFavorites(Context context, int count, int page, NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s&%s=%s",
+                BlogInterfaceConfig.USER_FAVORITES,
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
+                "count", count,
+                "page", page
+        );
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
+    }
+
+    /**
+     * 获得关注和粉丝,及互粉数据
+     *
+     * @param context     上下文对象
+     * @param type        类型，是获得粉丝数据还是获取关注数据
+     * @param uid         用户id
+     * @param count       每次获取数据条数
+     * @param index       游标,如果是获得互粉数据，则是用的page
+     * @param netCallback 回调方法
+     */
+    public static void netToFriendShips(Context context, String type, String uid, int count,
+                                        int index, NetCallback netCallback) {
+        String u = null;
+        String p = null;
+        //设置不同的接口
+        if (type.equals(Config.FRIEDNSHIP_FRIENDS)) {
+            u = BlogInterfaceConfig.FRIENDSHIPS_FRIENDS;
+            p = "cursor";
+        } else if (type.equals(Config.FRIENDSHIP_FOLLOWERS)) {
+            u = BlogInterfaceConfig.FRIENDSHIPS_FOLLOWERS;
+            p = "cursor";
+        } else if (type.equals(Config.FRIENDSHIP_BILATERAL)) {
+            u = BlogInterfaceConfig.FRIENDSHIPS_BILATERAL;
+            p = "page";
+        }
+        //组合成url
+        String url = String.format("%s?%s=%s&%s=%s&%s=%s&%s=%s",
+                u,
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
+                "uid", uid,
+                "count", count,
+                p, index
+        );
+        addRequestQueueToTransData(netCallback, url, Request.Method.GET);
+    }
+
+    /**
+     * 删除一条微博
+     *
+     * @param context     上下文对象
+     * @param id          微博id
+     * @param netCallback 回调方法
+     */
+    public static void netToDestroyStatuses(Context context, String id, NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s",
+                BlogInterfaceConfig.DESTROY_STATUSES,
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
+                "id", id
+        );
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
     }
 
     /**
@@ -376,6 +479,17 @@ public class NetConnectionUtil {
                 netCallback.doFail(Config.FAIL);
             }
         }));
+    }
+
+    /**
+     * 返回Token值
+     *
+     * @param context 上下文对象
+     * @return String类型的token值
+     */
+    private static String getToken(Context context) {
+
+        return AccessTokenKeeper.readAccessToken(context).getToken();
     }
 
     /**

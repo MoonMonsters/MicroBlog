@@ -50,8 +50,16 @@ public class SharedPrefUtil {
      */
     public static final String FOLLOWING_COUNT = "following_count";
 
-    /** 背景图 */
+    /**
+     * 背景图
+     */
     public static final String COVER_BG_IMG = "cover_gb_img";
+
+    /**
+     * 用户的互粉数
+     */
+    public static final String BI_FOLLOWERS_COUNT = "bi_followers_count";
+
     /**
      * 保存登录用户信息
      *
@@ -64,13 +72,14 @@ public class SharedPrefUtil {
 
         SharedPreferences.Editor editor = context.getSharedPreferences(LOCAL_USER_INFO, Context.MODE_PRIVATE).edit();
         editor.putString(USER_HEAD_IMG_LARGE, localUserInfo.getAvatar_hd());
-        editor.putString(USER_HEAD_IMG_MIDDLE,localUserInfo.getProfile_image_url());
+        editor.putString(USER_HEAD_IMG_MIDDLE, localUserInfo.getProfile_image_url());
         editor.putString(USERNAME, localUserInfo.getScreen_name());
         editor.putString(DESCRIPTION, localUserInfo.getDescription());
         editor.putInt(STATUES_COUNT, localUserInfo.getStatuses_count());
         editor.putInt(FOLLOWERS_COUNT, localUserInfo.getFollowers_count());
         editor.putInt(FOLLOWING_COUNT, localUserInfo.getFriends_count());
-        editor.putString(COVER_BG_IMG,localUserInfo.getCover_image_phone());
+        editor.putString(COVER_BG_IMG, localUserInfo.getCover_image_phone());
+        editor.putInt(BI_FOLLOWERS_COUNT, localUserInfo.getBi_followers_count());
         editor.apply();
     }
 
@@ -127,18 +136,26 @@ public class SharedPrefUtil {
                 .getInt(FOLLOWING_COUNT, 0);
     }
 
-    public static String getCoverBgImg(Context context){
+    public static String getCoverBgImg(Context context) {
 
-        return context.getSharedPreferences(LOCAL_USER_INFO,Context.MODE_PRIVATE)
-                .getString(COVER_BG_IMG,null);
+        return context.getSharedPreferences(LOCAL_USER_INFO, Context.MODE_PRIVATE)
+                .getString(COVER_BG_IMG, null);
     }
 
     /**
      * 获得中等大小头像
      */
-    public static String getUserHeadImgMiddle(Context context){
-        return context.getSharedPreferences(LOCAL_USER_INFO,Context.MODE_PRIVATE)
-                .getString(USER_HEAD_IMG_MIDDLE,null);
+    public static String getUserHeadImgMiddle(Context context) {
+        return context.getSharedPreferences(LOCAL_USER_INFO, Context.MODE_PRIVATE)
+                .getString(USER_HEAD_IMG_MIDDLE, null);
+    }
+
+    /**
+     * 返回用户的互粉数
+     */
+    public static int getBiFollowersCount(Context context) {
+        return context.getSharedPreferences(LOCAL_USER_INFO, Context.MODE_PRIVATE)
+                .getInt(BI_FOLLOWERS_COUNT, 0);
     }
 
 }

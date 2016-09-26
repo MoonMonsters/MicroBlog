@@ -100,4 +100,38 @@ public interface BlogInterfaceConfig {
      * 批量获取用户的粉丝数、关注数、微博数
      */
     String USERS_COUNTS = "https://api.weibo.com/2/users/counts.json";
+
+    /**
+     * 关注一个用户
+     */
+    String CREATE_FRIENDSHIPS = "https://api.weibo.com/2/friendships/create.json";
+    /**
+     * 取消关注
+     */
+    String DESTROY_FRIENDSHIPS = "https://api.weibo.com/2/friendships/destroy.json";
+
+    /**
+     * 用户收藏列表
+     */
+    String USER_FAVORITES = "https://api.weibo.com/2/favorites.json";
+
+    /**
+     * 获取用户的关注列表
+     */
+    String FRIENDSHIPS_FRIENDS = "https://api.weibo.com/2/friendships/friends.json";
+
+    /**
+     * 获取用户的粉丝列表
+     */
+    String FRIENDSHIPS_FOLLOWERS = "https://api.weibo.com/2/friendships/followers.json";
+
+    /**
+     * 获取用户的双向关注列表，即互粉列表
+     */
+    String FRIENDSHIPS_BILATERAL = "https://api.weibo.com/2/friendships/friends/bilateral.json";
+
+    /**
+     * 删除自己发布的一条微博
+     */
+    String DESTROY_STATUSES = "https://api.weibo.com/2/statuses/destroy.json";
 }

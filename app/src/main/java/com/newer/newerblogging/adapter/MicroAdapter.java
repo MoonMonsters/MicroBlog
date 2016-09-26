@@ -25,6 +25,7 @@ import com.newer.newerblogging.activity.UserHomeActivity;
 import com.newer.newerblogging.base.BaseViewHolder;
 import com.newer.newerblogging.bean.microblog.RetweetedStatus;
 import com.newer.newerblogging.bean.microblog.SingleMicroblog;
+import com.newer.newerblogging.utils.AccessTokenKeeper;
 import com.newer.newerblogging.utils.Config;
 import com.newer.newerblogging.utils.GlideForPicFromNet;
 import com.newer.newerblogging.utils.Utils;
@@ -38,6 +39,10 @@ import butterknife.Bind;
 /**
  * Created by Chalmers on 2016-09-13 12:36.
  * email:qxinhai@yeah.net
+ */
+
+/**
+ * 微博适配器
  */
 public class MicroAdapter extends BaseAdapter {
 
@@ -101,7 +106,6 @@ public class MicroAdapter extends BaseAdapter {
      * 该ViewHolder布局用的是直接发送的微博
      */
     class ViewHolderTypeOne extends BaseViewHolder {
-
 
         @Bind(R.id.hpv_micro_header)
         HeadPicView hpvMicroHeader;
@@ -218,6 +222,8 @@ public class MicroAdapter extends BaseAdapter {
                     //如果是把广播发送HomeFragment中去
                     if (mAction.equals(Config.ACTION_HOME_FRAGMENT)) {
                         intent.setAction(Config.ACTION_HOME_FRAGMENT_LIKE);
+                    } else if (mAction.equals(Config.ACTION_FAVORITE_FRAGMENT)) {
+                        intent.setAction(Config.ACTION_FAVORITE_FRAGMENT_LIKE);
                     }
 
                     //需要更改的位置
@@ -282,6 +288,7 @@ public class MicroAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
+                    //弹出菜单
                     PopupMenu popupMenu = new PopupMenu(mContext, v);
                     popupMenu.inflate(R.menu.menu_btn_more);
                     popupMenu.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -289,11 +296,21 @@ public class MicroAdapter extends BaseAdapter {
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            // TODO
-                            if (item.getItemId() == R.id.action_hide_one) {
+                            // TODO 执行命令
+                            if (item.getItemId() == R.id.action_more_hide_one) {
                                 Toast.makeText(mContext, "屏蔽这条微博", Toast.LENGTH_SHORT).show();
-                            } else if (item.getItemId() == R.id.action_hide_all) {
+                            } else if (item.getItemId() == R.id.action_more_hide_all) {
                                 Toast.makeText(mContext, "屏蔽此人微博", Toast.LENGTH_SHORT).show();
+                            } else if (item.getItemId() == R.id.action_more_delete) {
+                                //如果操作的是他人微博，则不能删除微博
+                                if (!obj.getUser().getIdstr().equals(AccessTokenKeeper.readAccessToken(mContext).getUid())) {
+                                    Toast.makeText(mContext, "无法删除他人微博", Toast.LENGTH_SHORT).show();
+                                } else {    //将要删除的微博位置通过广播发送到HomeFragment中去，然后执行删除命令
+                                    Intent intent = new Intent();
+                                    intent.setAction(Config.ACTION_HOME_FRAGMENT_DELETE);
+                                    intent.putExtra(Config.ACTION_DATA_POSITION, mMicroblogs.indexOf(obj));
+                                    mContext.sendBroadcast(intent);
+                                }
                             }
 
                             return true;
@@ -302,12 +319,13 @@ public class MicroAdapter extends BaseAdapter {
                 }
             });
 
-            // TODO
+            //头像的点击事件
             hpvMicroHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //放大高清头像
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
-                    intent.putExtra(Config.EXTRA_USER_ID,obj.getUser().getIdstr());
+                    intent.putExtra(Config.EXTRA_USER_ID, obj.getUser().getIdstr());
                     mContext.startActivity(intent);
                 }
             });

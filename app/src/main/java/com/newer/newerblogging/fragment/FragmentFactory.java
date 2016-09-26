@@ -67,6 +67,24 @@ public class FragmentFactory {
      */
     public static final String FRAGMENT_TRENDS_WEEKLY = "TrendsWeeklyFragment";
 
+    /**
+     * 用户关注人
+     */
+    public static final String FRAGMENT_CONTACT_FRIENDSHIP_FRIENDS = "ContactFragment_FriendshipFriends";
+    /**
+     * 用户粉丝
+     */
+    public static final String FRAGMENT_CONTACT_FRIENDSHIP_FOLLOWERS = "ContactFragment_FriendshipFollowers";
+    /**
+     * 互粉
+     */
+    public static final String FRAGMENT_CONTACT_FRIENDSHIP_BILATERAL = "ContactFragment_FriendshipBilateral";
+
+    /**
+     * 设置Fragment
+     */
+    public static final String FRAGMENT_SETTING = "SettingFragment";
+
     private static HashMap<String, BaseFragment> mFragments = new HashMap<>();
 
     /**
@@ -120,6 +138,18 @@ public class FragmentFactory {
             case FRAGMENT_TRENDS_WEEKLY:
                 fragment = new TrendContentFragment().getInstance(Config.WEEKLY);
                 break;
+            case FRAGMENT_CONTACT_FRIENDSHIP_FRIENDS:
+                fragment = new ContactContentFragment().getInstance(Config.FRIEDNSHIP_FRIENDS);
+                break;
+            case FRAGMENT_CONTACT_FRIENDSHIP_FOLLOWERS:
+                fragment = new ContactContentFragment().getInstance(Config.FRIENDSHIP_FOLLOWERS);
+                break;
+            case FRAGMENT_CONTACT_FRIENDSHIP_BILATERAL:
+                fragment = new ContactContentFragment().getInstance(Config.FRIENDSHIP_BILATERAL);
+                break;
+            case FRAGMENT_SETTING:
+                fragment = new SettingFragment();
+                break;
         }
 
         //放入HashMap中，下次再加载，就不用重新创建
@@ -127,5 +157,4 @@ public class FragmentFactory {
 
         return fragment;
     }
-
 }

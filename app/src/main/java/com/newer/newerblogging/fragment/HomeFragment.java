@@ -92,8 +92,7 @@ public class HomeFragment extends BaseFragment {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Config.ACTION_HOME_FRAGMENT_LIKE);
         filter.addAction(Config.ACTION_HOME_FRAGMENT_PRAISE);
-        filter.addAction(Config.ACTION_HOME_FRAGMENT_COMMENT);
-        filter.addAction(Config.ACTION_HOME_FRAGMENT_REPEAT);
+        filter.addAction(Config.ACTION_HOME_FRAGMENT_DELETE);
         getActivity().registerReceiver(mReceiver, filter);
     }
 
@@ -296,6 +295,24 @@ public class HomeFragment extends BaseFragment {
                                 }
                             });
                 }
+            } else if (action.equals(Config.ACTION_HOME_FRAGMENT_DELETE)) {    //删除微博
+                //执行删除命令
+                NetConnectionUtil.netToDestroyStatuses(getContext(), mSingleMicroblogs.get(position).getIdstr(),
+                        new NetConnectionUtil.NetCallback() {
+                            @Override
+                            public void doSuccess(String data) {
+                                Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                                //从列表中移除掉
+                                mSingleMicroblogs.remove(position);
+                                //删除界面
+                                mAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void doFail(String message) {
+                                Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         }
     }

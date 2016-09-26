@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:title="微博"
-        android:id="@+id/action_nav_blog"
-        app:showAsAction="ifRoom"
-        android:icon="@mipmap/ic_launcher"
-        />
-    <item
-        android:title="@string/menu_nav_notify"
-        android:id="@+id/action_nav_notify"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_nav_notify"
-        />
-    <item
-        android:title="@string/menu_nav_message"
-        android:id="@+id/action_nav_message"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_nav_message"
-        />
+    <item android:title="操作">
+        <menu>
+            <group android:id="@+id/group_operator">
+                <item
+                    android:id="@+id/action_nav_blog"
+                    android:icon="@mipmap/ic_launcher"
+                    android:title="微博"
+                    app:showAsAction="ifRoom" />
+                <item
+                    android:id="@+id/action_nav_notify"
+                    android:icon="@drawable/ic_nav_notify"
+                    android:title="@string/menu_nav_notify"
+                    app:showAsAction="ifRoom" />
+                <item
+                    android:id="@+id/action_nav_message"
+                    android:icon="@drawable/ic_nav_message"
+                    android:title="@string/menu_nav_message"
+                    app:showAsAction="ifRoom" />
 
-    <item
-        android:title="@string/menu_nav_favorite"
-        android:id="@+id/action_nav_favorite"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_nav_favorite"
-        />
-
+                <item
+                    android:id="@+id/action_nav_favorite"
+                    android:icon="@drawable/ic_nav_favorite"
+                    android:title="@string/menu_nav_favorite"
+                    app:showAsAction="ifRoom" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="设置">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/action_nav_setting"
+                    android:icon="@drawable/ic_setting"
+                    android:title="设置" />
+            </group>
+        </menu>
+    </item>
 </menu>

@@ -20,6 +20,7 @@ import com.newer.newerblogging.fragment.FavoriteFragment;
 import com.newer.newerblogging.fragment.FragmentFactory;
 import com.newer.newerblogging.fragment.MessageFragment;
 import com.newer.newerblogging.fragment.NotificationFragment;
+import com.newer.newerblogging.fragment.SettingFragment;
 import com.newer.newerblogging.fragment.WeiboFragment;
 import com.newer.newerblogging.utils.GlideForPicFromNet;
 import com.newer.newerblogging.utils.SharedPrefUtil;
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity {
     private MessageFragment mMessageFragment;
     private NotificationFragment mNotificationFragment;
     private WeiboFragment mWeiboFragment;
+    private SettingFragment mSettingFragment;
 
     /**
      * 抽屉
@@ -92,16 +94,19 @@ public class MainActivity extends BaseActivity {
         mNotificationFragment = (NotificationFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_NOTIFICATION);
         mMessageFragment = (MessageFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_MESSAGE);
         mFavoriteFragment = (FavoriteFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_FAVORITE);
+        mSettingFragment = (SettingFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_SETTING);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.frame_main_content,mWeiboFragment)
-                .add(R.id.frame_main_content,mNotificationFragment)
-                .add(R.id.frame_main_content,mMessageFragment)
-                .add(R.id.frame_main_content,mFavoriteFragment)
+                .add(R.id.frame_main_content, mWeiboFragment)
+                .add(R.id.frame_main_content, mNotificationFragment)
+                .add(R.id.frame_main_content, mMessageFragment)
+                .add(R.id.frame_main_content, mFavoriteFragment)
+                .add(R.id.frame_main_content, mSettingFragment)
                 .show(mWeiboFragment)
                 .hide(mNotificationFragment)
                 .hide(mMessageFragment)
                 .hide(mFavoriteFragment)
+                .hide(mSettingFragment)
                 .commit();
     }
 
@@ -112,33 +117,44 @@ public class MainActivity extends BaseActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            if(item.getItemId() == R.id.action_nav_notify){
+            if (item.getItemId() == R.id.action_nav_notify) {   //通知
                 getSupportFragmentManager().beginTransaction()
                         .show(mNotificationFragment)
                         .hide(mWeiboFragment)
                         .hide(mMessageFragment)
                         .hide(mFavoriteFragment)
+                        .hide(mSettingFragment)
                         .commit();
-            }else if(item.getItemId() == R.id.action_nav_message){
+            } else if (item.getItemId() == R.id.action_nav_message) {   //私信
                 getSupportFragmentManager().beginTransaction()
                         .show(mMessageFragment)
                         .hide(mNotificationFragment)
                         .hide(mWeiboFragment)
                         .hide(mFavoriteFragment)
+                        .hide(mSettingFragment)
                         .commit();
-            }else if(item.getItemId() == R.id.action_nav_favorite){
+            } else if (item.getItemId() == R.id.action_nav_favorite) {  //收藏
                 getSupportFragmentManager().beginTransaction()
                         .show(mFavoriteFragment)
                         .hide(mNotificationFragment)
                         .hide(mMessageFragment)
                         .hide(mWeiboFragment)
                         .commit();
-            }else if(item.getItemId() == R.id.action_nav_blog){
+            } else if (item.getItemId() == R.id.action_nav_blog) {  //微博
                 getSupportFragmentManager().beginTransaction()
                         .show(mWeiboFragment)
                         .hide(mNotificationFragment)
                         .hide(mMessageFragment)
                         .hide(mFavoriteFragment)
+                        .hide(mSettingFragment)
+                        .commit();
+            } else if (item.getItemId() == R.id.action_nav_setting) {   //设置
+                getSupportFragmentManager().beginTransaction()
+                        .show(mSettingFragment)
+                        .hide(mNotificationFragment)
+                        .hide(mMessageFragment)
+                        .hide(mFavoriteFragment)
+                        .hide(mWeiboFragment)
                         .commit();
             }
 
@@ -201,7 +217,7 @@ public class MainActivity extends BaseActivity {
                 new GlideForPicFromNet.HeadCallback() {
                     @Override
                     public void doCallbackData(Bitmap bitmap) {
-                        layout_nav_bg.setBackground(new BitmapDrawable(MainActivity.this.getResources(), bitmap) );
+                        layout_nav_bg.setBackground(new BitmapDrawable(MainActivity.this.getResources(), bitmap));
                     }
                 });
     }

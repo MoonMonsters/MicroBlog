@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:icon="@drawable/ic_cancel"
-        android:id="@+id/action_hide_one"
-        app:showAsAction="ifRoom"
-        android:title="屏蔽这条微博" />
+        android:id="@+id/action_more_hide_one"
+        android:title="@string/string_hide_weibo"
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_hide_all"
-        android:icon="@drawable/ic_like_ok"
-        app:showAsAction="ifRoom"
-        android:title="屏蔽此人微博" />
+        android:id="@+id/action_more_hide_all"
+        android:title="@string/string_hide_all_weibo"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_more_delete"
+        android:title="@string/string_delete"
+        app:showAsAction="ifRoom" />
 
 </menu>

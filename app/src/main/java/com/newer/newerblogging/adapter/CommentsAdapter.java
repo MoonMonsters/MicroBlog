@@ -1,6 +1,7 @@
 package com.newer.newerblogging.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.newer.newerblogging.R;
+import com.newer.newerblogging.activity.UserHomeActivity;
 import com.newer.newerblogging.bean.comment.Comment;
+import com.newer.newerblogging.utils.Config;
 import com.newer.newerblogging.utils.GlideForPicFromNet;
 import com.newer.newerblogging.utils.Utils;
 import com.newer.newerblogging.view.HeadPicView;
@@ -37,7 +40,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     public CommentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.item_micro_comment,parent,false);
+                .inflate(R.layout.item_micro_comment, parent, false);
         CommentsViewHolder viewHolder = new CommentsViewHolder(view);
 
         return viewHolder;
@@ -66,11 +69,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
         public CommentsViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         /**
          * 绑定数据
+         *
          * @param obj 需要绑定的对象
          */
         public void bindData(Object obj) {
@@ -88,6 +92,19 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             tvMicroCommentContent.setText(comment.getText());
             tvMicroCommentName.setText(comment.getUser().getScreen_name());
             tvMicroCommentTime.setText(Utils.gmtToLocalTime(comment.getCreated_at()));
+
+            initListener((Comment) obj);
+        }
+
+        private void initListener(final Comment comment) {
+            hpvMicroCommentHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, UserHomeActivity.class);
+                    intent.putExtra(Config.EXTRA_USER_ID, comment.getUser().getIdstr());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

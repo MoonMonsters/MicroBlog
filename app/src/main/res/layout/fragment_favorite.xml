@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.newer.newerblogging.fragment.FavoriteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/ptrlv_favorite_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:divider="@drawable/ic_top_line"
+        android:dividerHeight="8dp"
+        android:focusable="false" />
 
 </FrameLayout>

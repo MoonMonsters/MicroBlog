@@ -20,6 +20,14 @@
     <string name="string_repost">转发</string>
     <string name="string_create_comment">发表评论...</string>
     <string name="string_weibo_shared">分享你对这个世界的看法...</string>
+    <string name="string_weibo_comment">微博评论</string>
+    <string name="string_send_comment">发表评论</string>
+    <string name="string_trend_weibo">话题微博</string>
+    <string name="string_send_weibo">发布微博</string>
+    <string name="string_user_home">用户主页</string>
+    <string name="string_hide_weibo">屏蔽这条微博</string>
+    <string name="string_hide_all_weibo">屏蔽此人微博</string>
+    <string name="string_delete">删除</string>
 
 
 </resources>

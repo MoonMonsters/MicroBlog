@@ -103,6 +103,15 @@ public class SingleWeiboDetailActivity extends BaseActivity {
                 }
             }
         });
+
+        hpvMicroHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SingleWeiboDetailActivity.this, UserHomeActivity.class);
+                intent.putExtra(Config.EXTRA_USER_ID,mSingleMicroblog.getUser().getIdstr());
+                SingleWeiboDetailActivity.this.startActivity(intent);
+            }
+        });
     }
 
     @Override

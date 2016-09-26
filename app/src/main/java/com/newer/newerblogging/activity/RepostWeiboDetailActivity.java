@@ -1,5 +1,6 @@
 package com.newer.newerblogging.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -101,6 +102,15 @@ public class RepostWeiboDetailActivity extends BaseActivity {
                 }
             }
         });
+
+        hpvMicroHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RepostWeiboDetailActivity.this, UserHomeActivity.class);
+                intent.putExtra(Config.EXTRA_USER_ID, mSingleMicroblog.getUser().getIdstr());
+                RepostWeiboDetailActivity.this.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -152,11 +162,11 @@ public class RepostWeiboDetailActivity extends BaseActivity {
                     public void doSuccess(String data) {
 //                        Collections.reverse(list);
                         ArrayList<Comment> list = new Gson().fromJson(data, AllComments.class).getComments();
-                        if(list != null && list.size() != 0){
+                        if (list != null && list.size() != 0) {
 
                             mComments.addAll(mComments.size() == 0 ? 0 : mComments.size() - 1,
                                     list);
-                            LoggerUtil.i("COMMENT",mComments.toString());
+                            LoggerUtil.i("COMMENT", mComments.toString());
                             id_command = String.valueOf(Long.valueOf(list.get(list.size() - 1).getIdstr()) - 1);
                             mCommentAdapter.notifyDataSetChanged();
                         }
