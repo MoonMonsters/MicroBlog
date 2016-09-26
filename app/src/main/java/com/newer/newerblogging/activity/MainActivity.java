@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.newer.newerblogging.R;
 import com.newer.newerblogging.base.BaseActivity;
+import com.newer.newerblogging.base.BaseFragment;
 import com.newer.newerblogging.fragment.FavoriteFragment;
 import com.newer.newerblogging.fragment.FragmentFactory;
 import com.newer.newerblogging.fragment.MessageFragment;
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity {
     private NotificationFragment mNotificationFragment;
     private WeiboFragment mWeiboFragment;
     private SettingFragment mSettingFragment;
+
+    private BaseFragment mCurrentFragment;
 
     /**
      * 抽屉
@@ -102,12 +105,13 @@ public class MainActivity extends BaseActivity {
                 .add(R.id.frame_main_content, mMessageFragment)
                 .add(R.id.frame_main_content, mFavoriteFragment)
                 .add(R.id.frame_main_content, mSettingFragment)
-                .show(mWeiboFragment)
+                .hide(mWeiboFragment)
                 .hide(mNotificationFragment)
                 .hide(mMessageFragment)
                 .hide(mFavoriteFragment)
                 .hide(mSettingFragment)
                 .commit();
+        showWeiboFragment();
     }
 
     /**
@@ -118,44 +122,15 @@ public class MainActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             if (item.getItemId() == R.id.action_nav_notify) {   //通知
-                getSupportFragmentManager().beginTransaction()
-                        .show(mNotificationFragment)
-                        .hide(mWeiboFragment)
-                        .hide(mMessageFragment)
-                        .hide(mFavoriteFragment)
-                        .hide(mSettingFragment)
-                        .commit();
+                showNotificationFragment();
             } else if (item.getItemId() == R.id.action_nav_message) {   //私信
-                getSupportFragmentManager().beginTransaction()
-                        .show(mMessageFragment)
-                        .hide(mNotificationFragment)
-                        .hide(mWeiboFragment)
-                        .hide(mFavoriteFragment)
-                        .hide(mSettingFragment)
-                        .commit();
+                showMessageFragment();
             } else if (item.getItemId() == R.id.action_nav_favorite) {  //收藏
-                getSupportFragmentManager().beginTransaction()
-                        .show(mFavoriteFragment)
-                        .hide(mNotificationFragment)
-                        .hide(mMessageFragment)
-                        .hide(mWeiboFragment)
-                        .commit();
+                showFavoriteFragment();
             } else if (item.getItemId() == R.id.action_nav_blog) {  //微博
-                getSupportFragmentManager().beginTransaction()
-                        .show(mWeiboFragment)
-                        .hide(mNotificationFragment)
-                        .hide(mMessageFragment)
-                        .hide(mFavoriteFragment)
-                        .hide(mSettingFragment)
-                        .commit();
+                showWeiboFragment();
             } else if (item.getItemId() == R.id.action_nav_setting) {   //设置
-                getSupportFragmentManager().beginTransaction()
-                        .show(mSettingFragment)
-                        .hide(mNotificationFragment)
-                        .hide(mMessageFragment)
-                        .hide(mFavoriteFragment)
-                        .hide(mWeiboFragment)
-                        .commit();
+                showSettingFragment();
             }
 
             //关闭抽屉
@@ -163,6 +138,75 @@ public class MainActivity extends BaseActivity {
             return true;
         }
     };
+
+    /**
+     * 显示SettingFragment
+     */
+    private void showSettingFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .show(mSettingFragment)
+                .hide(mNotificationFragment)
+                .hide(mMessageFragment)
+                .hide(mFavoriteFragment)
+                .hide(mWeiboFragment)
+                .commit();
+        mCurrentFragment = mSettingFragment;
+    }
+
+    /**
+     * 显示WeiboFragment
+     */
+    private void showWeiboFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .show(mWeiboFragment)
+                .hide(mNotificationFragment)
+                .hide(mMessageFragment)
+                .hide(mFavoriteFragment)
+                .hide(mSettingFragment)
+                .commit();
+        mCurrentFragment = mWeiboFragment;
+    }
+
+    /**
+     * 显示FavoriteFragment
+     */
+    private void showFavoriteFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .show(mFavoriteFragment)
+                .hide(mNotificationFragment)
+                .hide(mMessageFragment)
+                .hide(mWeiboFragment)
+                .commit();
+        mCurrentFragment = mFavoriteFragment;
+    }
+
+    /**
+     * 显示MessageFragment
+     */
+    private void showMessageFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .show(mMessageFragment)
+                .hide(mNotificationFragment)
+                .hide(mWeiboFragment)
+                .hide(mFavoriteFragment)
+                .hide(mSettingFragment)
+                .commit();
+        mCurrentFragment = mMessageFragment;
+    }
+
+    /**
+     * 显示NotificationFragment
+     */
+    private void showNotificationFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .show(mNotificationFragment)
+                .hide(mWeiboFragment)
+                .hide(mMessageFragment)
+                .hide(mFavoriteFragment)
+                .hide(mSettingFragment)
+                .commit();
+        mCurrentFragment = mNotificationFragment;
+    }
 
     /**
      * 设置顶部栏数据包括头像和用户名
@@ -220,5 +264,18 @@ public class MainActivity extends BaseActivity {
                         layout_nav_bg.setBackground(new BitmapDrawable(MainActivity.this.getResources(), bitmap));
                     }
                 });
+    }
+
+    /**
+     * 重写回退方法
+     */
+    @Override
+    public void onBackPressed() {
+        //如果当前不是WeiboFragment，则回到此Fragment
+        if (mCurrentFragment != mWeiboFragment) {
+            showWeiboFragment();
+        }else{
+            this.finish();
+        }
     }
 }
