@@ -19,8 +19,6 @@ import com.newer.newerblogging.base.BaseActivity;
 import com.newer.newerblogging.base.BaseFragment;
 import com.newer.newerblogging.fragment.FavoriteFragment;
 import com.newer.newerblogging.fragment.FragmentFactory;
-import com.newer.newerblogging.fragment.MessageFragment;
-import com.newer.newerblogging.fragment.NotificationFragment;
 import com.newer.newerblogging.fragment.SettingFragment;
 import com.newer.newerblogging.fragment.WeiboFragment;
 import com.newer.newerblogging.utils.GlideForPicFromNet;
@@ -44,8 +42,6 @@ public class MainActivity extends BaseActivity {
     TextView tvMainName;
 
     private FavoriteFragment mFavoriteFragment;
-    private MessageFragment mMessageFragment;
-    private NotificationFragment mNotificationFragment;
     private WeiboFragment mWeiboFragment;
     private SettingFragment mSettingFragment;
 
@@ -94,20 +90,14 @@ public class MainActivity extends BaseActivity {
         abdtDrawerToggle.syncState();
 
         mWeiboFragment = (WeiboFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_WEIBO);
-        mNotificationFragment = (NotificationFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_NOTIFICATION);
-        mMessageFragment = (MessageFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_MESSAGE);
         mFavoriteFragment = (FavoriteFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_FAVORITE);
         mSettingFragment = (SettingFragment) FragmentFactory.getInstance(FragmentFactory.FRAGMENT_SETTING);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.frame_main_content, mWeiboFragment)
-                .add(R.id.frame_main_content, mNotificationFragment)
-                .add(R.id.frame_main_content, mMessageFragment)
                 .add(R.id.frame_main_content, mFavoriteFragment)
                 .add(R.id.frame_main_content, mSettingFragment)
                 .hide(mWeiboFragment)
-                .hide(mNotificationFragment)
-                .hide(mMessageFragment)
                 .hide(mFavoriteFragment)
                 .hide(mSettingFragment)
                 .commit();
@@ -121,11 +111,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            if (item.getItemId() == R.id.action_nav_notify) {   //通知
-                showNotificationFragment();
-            } else if (item.getItemId() == R.id.action_nav_message) {   //私信
-                showMessageFragment();
-            } else if (item.getItemId() == R.id.action_nav_favorite) {  //收藏
+            if (item.getItemId() == R.id.action_nav_favorite) {  //收藏
                 showFavoriteFragment();
             } else if (item.getItemId() == R.id.action_nav_blog) {  //微博
                 showWeiboFragment();
@@ -145,8 +131,6 @@ public class MainActivity extends BaseActivity {
     private void showSettingFragment() {
         getSupportFragmentManager().beginTransaction()
                 .show(mSettingFragment)
-                .hide(mNotificationFragment)
-                .hide(mMessageFragment)
                 .hide(mFavoriteFragment)
                 .hide(mWeiboFragment)
                 .commit();
@@ -159,8 +143,6 @@ public class MainActivity extends BaseActivity {
     private void showWeiboFragment() {
         getSupportFragmentManager().beginTransaction()
                 .show(mWeiboFragment)
-                .hide(mNotificationFragment)
-                .hide(mMessageFragment)
                 .hide(mFavoriteFragment)
                 .hide(mSettingFragment)
                 .commit();
@@ -173,39 +155,9 @@ public class MainActivity extends BaseActivity {
     private void showFavoriteFragment() {
         getSupportFragmentManager().beginTransaction()
                 .show(mFavoriteFragment)
-                .hide(mNotificationFragment)
-                .hide(mMessageFragment)
                 .hide(mWeiboFragment)
                 .commit();
         mCurrentFragment = mFavoriteFragment;
-    }
-
-    /**
-     * 显示MessageFragment
-     */
-    private void showMessageFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .show(mMessageFragment)
-                .hide(mNotificationFragment)
-                .hide(mWeiboFragment)
-                .hide(mFavoriteFragment)
-                .hide(mSettingFragment)
-                .commit();
-        mCurrentFragment = mMessageFragment;
-    }
-
-    /**
-     * 显示NotificationFragment
-     */
-    private void showNotificationFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .show(mNotificationFragment)
-                .hide(mWeiboFragment)
-                .hide(mMessageFragment)
-                .hide(mFavoriteFragment)
-                .hide(mSettingFragment)
-                .commit();
-        mCurrentFragment = mNotificationFragment;
     }
 
     /**
@@ -274,7 +226,7 @@ public class MainActivity extends BaseActivity {
         //如果当前不是WeiboFragment，则回到此Fragment
         if (mCurrentFragment != mWeiboFragment) {
             showWeiboFragment();
-        }else{
+        } else {
             this.finish();
         }
     }

@@ -88,15 +88,17 @@ public class MicroAdapter extends BaseAdapter {
         ViewHolderTypeOne viewHolderTypeOne;
         ViewHolderTypeTwo viewHolderTypeTwo;
 
+        SingleMicroblog singleMicroblog = mMicroblogs.get(position);
+
         if (getItemViewType(position) == 0) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_micro_single, parent, false);
             viewHolderTypeOne = new ViewHolderTypeOne(convertView);
 
-            viewHolderTypeOne.bindData(mMicroblogs.get(position));
+            viewHolderTypeOne.bindData(singleMicroblog);
         } else if (getItemViewType(position) == 1) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_micro_repost, parent, false);
             viewHolderTypeTwo = new ViewHolderTypeTwo(convertView);
-            viewHolderTypeTwo.bindData(mMicroblogs.get(position));
+            viewHolderTypeTwo.bindData(singleMicroblog);
         }
 
         return convertView;
@@ -296,12 +298,7 @@ public class MicroAdapter extends BaseAdapter {
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            // TODO 执行命令
-                            if (item.getItemId() == R.id.action_more_hide_one) {
-                                Toast.makeText(mContext, "屏蔽这条微博", Toast.LENGTH_SHORT).show();
-                            } else if (item.getItemId() == R.id.action_more_hide_all) {
-                                Toast.makeText(mContext, "屏蔽此人微博", Toast.LENGTH_SHORT).show();
-                            } else if (item.getItemId() == R.id.action_more_delete) {
+                            if (item.getItemId() == R.id.action_more_delete) {
                                 //如果操作的是他人微博，则不能删除微博
                                 if (!obj.getUser().getIdstr().equals(AccessTokenKeeper.readAccessToken(mContext).getUid())) {
                                     Toast.makeText(mContext, "无法删除他人微博", Toast.LENGTH_SHORT).show();
@@ -312,7 +309,6 @@ public class MicroAdapter extends BaseAdapter {
                                     mContext.sendBroadcast(intent);
                                 }
                             }
-
                             return true;
                         }
                     });

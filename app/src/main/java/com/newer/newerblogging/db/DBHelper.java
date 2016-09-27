@@ -20,6 +20,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CREATE_TABLE_SINGLEMICROBLOG = "create table microblog(" +
             "id integer primary key autoincrement," +
             "microblog text )";
+    public static final String CREATE_TABLE_BLACKLIST_USER = "create table blacklist_user(" +
+            "id integer primary key autoincrement," +
+            "user_id text" +
+            ")";
+    public static final String CREATE_TABLE_BLACKLIST_WEIBO = "create table blacklist_weibo(" +
+            "id integer primary key autoincrement," +
+            "weibo_id text" +
+            ")";
 
     public DBHelper(Context context) {
         this(context, DATABASE_NAME, null, VERSION);
@@ -36,6 +44,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_SINGLEMICROBLOG);
+        db.execSQL(CREATE_TABLE_BLACKLIST_USER);
+        db.execSQL(CREATE_TABLE_BLACKLIST_WEIBO);
     }
 
     @Override

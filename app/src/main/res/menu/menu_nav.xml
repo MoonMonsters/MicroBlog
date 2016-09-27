@@ -10,16 +10,6 @@
                     android:icon="@mipmap/ic_launcher"
                     android:title="微博"
                     app:showAsAction="ifRoom" />
-                <item
-                    android:id="@+id/action_nav_notify"
-                    android:icon="@drawable/ic_nav_notify"
-                    android:title="@string/menu_nav_notify"
-                    app:showAsAction="ifRoom" />
-                <item
-                    android:id="@+id/action_nav_message"
-                    android:icon="@drawable/ic_nav_message"
-                    android:title="@string/menu_nav_message"
-                    app:showAsAction="ifRoom" />
 
                 <item
                     android:id="@+id/action_nav_favorite"

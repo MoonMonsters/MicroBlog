@@ -2,9 +2,10 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -59,24 +60,19 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="150dp" />
 
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_user_home_tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="350dp"
-            android:orientation="vertical">
+            android:background="@color/colorPrimary"
+            app:tabSelectedTextColor="#ffffffff" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tl_user_home_tab"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/colorPrimary"
-                app:tabSelectedTextColor="#ffffffff" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_user_home_content"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="400dp" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_user_home_content"
-                android:layout_width="match_parent"
-                android:layout_height="600dp" />
-        </LinearLayout>
-    </FrameLayout>
-
+    </android.support.design.widget.CoordinatorLayout>
 </android.support.v4.widget.NestedScrollView>
