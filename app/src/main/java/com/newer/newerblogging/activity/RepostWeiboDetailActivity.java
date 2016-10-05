@@ -142,7 +142,7 @@ public class RepostWeiboDetailActivity extends BaseActivity {
 
         rvDetailContent.setLayoutManager(new GridLayoutManager(this, 1));
         mComments = new ArrayList<>();
-        mCommentAdapter = new CommentsAdapter(this, mComments);
+        mCommentAdapter = new CommentsAdapter(this, mComments, mSingleMicroblog.getIdstr());
         rvDetailContent.setAdapter(mCommentAdapter);
 
 

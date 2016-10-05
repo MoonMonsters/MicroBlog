@@ -60,6 +60,8 @@ public class CreateWeiboActivity extends BaseActivity {
             });
         }else if(item.getItemId() == R.id.action_create_weibo_cancel){
             this.finish();
+        }else{
+            this.finish();
         }
 
         return true;

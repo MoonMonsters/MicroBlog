@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.newer.newerblogging.R;
 import com.newer.newerblogging.base.BaseActivity;
 import com.newer.newerblogging.bean.microblog.MicroblogPic;
@@ -56,7 +57,7 @@ public class ImgDetailActivity extends BaseActivity {
                                 Toast.makeText(ImgDetailActivity.this, "已是最后一张", Toast.LENGTH_SHORT).show();
                                 mIndex = mMicroblogPics.size() - 1;
                             }
-                        }else{
+                        } else {
                             ImgDetailActivity.this.finish();
                         }
 
@@ -82,15 +83,33 @@ public class ImgDetailActivity extends BaseActivity {
     }
 
     private void showImage() {
+        String imgUrl = mMicroblogPics.get(mIndex).getThumbnail_pic().replace("thumbnail", "large");
+//        if (imgUrl.endsWith("gif")) {
+//            Glide.with(this)
+//                    //中等图片 bmiddle
+//                    //大图片 large
+//                    //中等图片和large图片api接口中没有提供，但看json数据可以得到
+//                    //如果把thumbnail字符串换成上面的那两个字符串，就可以了
+//                    .load(imgUrl)
+//                    .asGif()
+//                    .into(ivImageDetail);
+//        } else {
+//            Glide.with(this)
+//                    //中等图片 bmiddle
+//                    //大图片 large
+//                    //中等图片和large图片api接口中没有提供，但看json数据可以得到
+//                    //如果把thumbnail字符串换成上面的那两个字符串，就可以了
+//                    .load(imgUrl)
+//                    .asBitmap()
+//                    .into(ivImageDetail);
+//        }
         Glide.with(this)
-                //中等图片 bmiddle
-                //大图片 large
-                //中等图片和large图片api接口中没有提供，但看json数据可以得到
-                //如果把thumbnail字符串换成上面的那两个字符串，就可以了
-                .load(mMicroblogPics.get(mIndex).getThumbnail_pic().replace("thumbnail", "large"))
-                .asBitmap()
+                .load(imgUrl)
+                //加载进磁盘中，加快gif格式的图片的加载速度
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(ivImageDetail);
-        setTitle((mIndex+1)+"/"+mMicroblogPics.size());
+
+        setTitle((mIndex + 1) + "/" + mMicroblogPics.size());
     }
 
     float x1 = 0;
@@ -99,7 +118,7 @@ public class ImgDetailActivity extends BaseActivity {
     public boolean onTouchEvent(MotionEvent event) {
 
         //如果点击的是图片之外的区域，则关闭Activity
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             this.finish();
         }
 

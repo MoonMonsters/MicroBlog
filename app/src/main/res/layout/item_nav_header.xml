@@ -24,7 +24,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
-            android:gravity="center" />
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
@@ -37,5 +39,7 @@
         android:ellipsize="marquee"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:singleLine="true" />
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

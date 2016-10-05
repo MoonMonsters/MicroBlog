@@ -456,6 +456,47 @@ public class NetConnectionUtil {
     }
 
     /**
+     * 删除一条自己的评论
+     *
+     * @param context     上下文对象
+     * @param cid         评论的id
+     * @param netCallback 回调方法
+     */
+    public static void netToDestroyComments(Context context, String cid, NetCallback netCallback) {
+        String url = String.format("%s?%s=%s&%s=%s",
+                BlogInterfaceConfig.DESTROY_COMMENTS,
+                BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
+                "cid", cid
+        );
+        addRequestQueueToTransData(netCallback, url, Request.Method.POST);
+    }
+
+    /**
+     * 回复一条评论
+     *
+     * @param context     上下文对象
+     * @param cid         评论id
+     * @param weiId       微博id
+     * @param comment     回复的评论
+     * @param netCallback 回调方法
+     */
+    public static void netToReplyComments(Context context, String cid, String weiId,
+                                          String comment, NetCallback netCallback) {
+        try {
+            String url = String.format("%s?%s=%s&%s=%s&%s=%s&%s=%s",
+                    BlogInterfaceConfig.REPLY_COMMENTS,
+                    BlogInterfaceConfig.ACCESS_TOKEN, getToken(context),
+                    "cid", cid,
+                    "id", weiId,
+                    "comment", URLEncoder.encode(comment, "utf-8")
+            );
+            addRequestQueueToTransData(netCallback, url, Request.Method.POST);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 所有的方法中，这个部分都是相同的，所以提取了出来
      *
      * @param netCallback 回调方法

@@ -146,7 +146,7 @@ public class SingleWeiboDetailActivity extends BaseActivity {
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         mComments = new ArrayList<>();
-        mCommentAdapter = new CommentsAdapter(this, mComments);
+        mCommentAdapter = new CommentsAdapter(this, mComments,mSingleMicroblog.getIdstr());
         recyclerView.setAdapter(mCommentAdapter);
 
         refresh();

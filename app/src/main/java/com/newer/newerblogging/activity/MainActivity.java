@@ -1,5 +1,6 @@
 package com.newer.newerblogging.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
@@ -21,6 +22,8 @@ import com.newer.newerblogging.fragment.FavoriteFragment;
 import com.newer.newerblogging.fragment.FragmentFactory;
 import com.newer.newerblogging.fragment.SettingFragment;
 import com.newer.newerblogging.fragment.WeiboFragment;
+import com.newer.newerblogging.utils.AccessTokenKeeper;
+import com.newer.newerblogging.utils.Config;
 import com.newer.newerblogging.utils.GlideForPicFromNet;
 import com.newer.newerblogging.utils.SharedPrefUtil;
 import com.newer.newerblogging.view.HeadPicView;
@@ -216,6 +219,14 @@ public class MainActivity extends BaseActivity {
                         layout_nav_bg.setBackground(new BitmapDrawable(MainActivity.this.getResources(), bitmap));
                     }
                 });
+        hpvNavHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserHomeActivity.class);
+                intent.putExtra(Config.EXTRA_USER_ID, AccessTokenKeeper.readAccessToken(MainActivity.this).getUid());
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
 
     /**

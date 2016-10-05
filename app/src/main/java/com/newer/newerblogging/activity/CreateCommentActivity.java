@@ -73,6 +73,8 @@ public class CreateCommentActivity extends BaseActivity {
 
         }else if(item.getItemId() == R.id.action_create_comment_cancel){
             this.finish();
+        }else{
+            this.finish();
         }
 
         return true;

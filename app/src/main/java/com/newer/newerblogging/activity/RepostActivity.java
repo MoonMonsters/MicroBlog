@@ -80,6 +80,8 @@ public class RepostActivity extends BaseActivity {
             });
         }else if(item.getItemId() == R.id.action_repost_cancel){
             RepostActivity.this.finish();
+        }else{
+            this.finish();
         }
 
         return true;

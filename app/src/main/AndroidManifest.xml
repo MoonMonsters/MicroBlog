@@ -34,9 +34,11 @@
             android:theme="@style/ImgDetailTheme" />
         <activity
             android:name=".activity.SingleWeiboDetailActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:label="@string/string_weibo_comment" />
         <activity
             android:name=".activity.RepostWeiboDetailActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:label="@string/string_weibo_comment" />
         <activity
             android:name=".activity.RepostActivity"
@@ -44,12 +46,14 @@
             android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.CreateCommentActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:label="@string/string_send_comment" />
         <activity
             android:name=".activity.TrendsActivity"
             android:label="@string/string_trend_weibo" />
         <activity
             android:name=".activity.CreateWeiboActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:label="@string/string_send_weibo" />
         <activity
             android:name=".activity.UserHomeActivity"
@@ -58,7 +62,7 @@
 
         <service
             android:name=".service.ClearIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>

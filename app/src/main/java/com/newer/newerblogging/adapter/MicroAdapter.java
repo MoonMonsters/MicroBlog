@@ -319,7 +319,6 @@ public class MicroAdapter extends BaseAdapter {
             hpvMicroHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //放大高清头像
                     Intent intent = new Intent(mContext, UserHomeActivity.class);
                     intent.putExtra(Config.EXTRA_USER_ID, obj.getUser().getIdstr());
                     mContext.startActivity(intent);

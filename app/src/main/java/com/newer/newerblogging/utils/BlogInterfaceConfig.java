@@ -134,4 +134,14 @@ public interface BlogInterfaceConfig {
      * 删除自己发布的一条微博
      */
     String DESTROY_STATUSES = "https://api.weibo.com/2/statuses/destroy.json";
+
+    /**
+     * 删除一条自己的评论
+     */
+    String DESTROY_COMMENTS = "https://api.weibo.com/2/comments/destroy.json";
+
+    /**
+     * 回复一条评论
+     */
+    String REPLY_COMMENTS = "https://api.weibo.com/2/comments/reply.json";
 }

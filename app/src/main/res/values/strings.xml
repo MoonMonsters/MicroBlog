@@ -28,6 +28,7 @@
     <string name="string_hide_weibo">屏蔽这条微博</string>
     <string name="string_hide_all_weibo">屏蔽此人微博</string>
     <string name="string_delete">删除</string>
+    <string name="string_reply">回复</string>
 
 
 </resources>
