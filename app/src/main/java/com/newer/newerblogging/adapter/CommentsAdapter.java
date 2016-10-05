@@ -3,6 +3,7 @@ package com.newer.newerblogging.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -136,22 +139,60 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
 
+                    //回复菜单
                     if (item.getItemId() == R.id.action_comment_reply) {
-                        NetConnectionUtil.netToReplyComments(mContext, mComment.getIdstr(),
-                                mWeiboIdStr, "哈哈哈", new NetConnectionUtil.NetCallback() {
-                                    @Override
-                                    public void doSuccess(String data) {
-                                        Comment comment = new Gson().fromJson(data, Comment.class);
-                                        mComments.add(comment);
-                                        CommentsAdapter.this.notifyDataSetChanged();
-                                        Toast.makeText(mContext, comment.toString(), Toast.LENGTH_SHORT).show();
-                                    }
 
-                                    @Override
-                                    public void doFail(String message) {
+                        //弹出对话框
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                        View dialogView = LayoutInflater.from(mContext)
+                                .inflate(R.layout.item_comment_reply_dialog, null);
+                        builder.setView(dialogView);
+                        final AlertDialog dialog = builder.create();
+                        //设置标题
+                        dialog.setTitle("回复: " + mComment.getUser().getScreen_name());
+                        dialog.show();
 
-                                    }
-                                });
+                        //对话框中的控件
+                        final EditText etCommentReply = (EditText) dialogView.findViewById(R.id.et_comment_reply);
+                        Button btnCommentCancel = (Button) dialogView.findViewById(R.id.btn_comment_cancel);
+                        Button btnCommentReply = (Button) dialogView.findViewById(R.id.btn_comment_reply);
+
+                        //取消
+                        btnCommentCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        //回复
+                        btnCommentReply.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //得到输入框中的内容
+                                String text = etCommentReply.getText().toString();
+                                NetConnectionUtil.netToReplyComments(mContext, mComment.getIdstr(),
+                                        mWeiboIdStr, text, new NetConnectionUtil.NetCallback() {
+                                            @Override
+                                            public void doSuccess(String data) {
+                                                Comment comment = new Gson().fromJson(data, Comment.class);
+                                                //添加到第一个位置
+                                                mComments.add(0, comment);
+                                                //刷新
+                                                CommentsAdapter.this.notifyDataSetChanged();
+                                                Toast.makeText(mContext, "评论成功", Toast.LENGTH_SHORT).show();
+                                                //隐藏对话框
+                                                dialog.dismiss();
+                                            }
+
+                                            @Override
+                                            public void doFail(String message) {
+                                                Toast.makeText(mContext, "回复失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        });
+
+                        //删除
                     } else if (item.getItemId() == R.id.action_comment_delete) {
                         if (mComment.getUser().getIdstr().equals(AccessTokenKeeper.readAccessToken(mContext)
                                 .getUid())) {
@@ -159,6 +200,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                                 @Override
                                 public void doSuccess(String data) {
                                     Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
+                                    //从界面中该删除的评论移除掉，并且刷新界面
                                     mComments.remove(mComment);
                                     CommentsAdapter.this.notifyDataSetChanged();
                                 }
@@ -168,11 +210,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                                     Toast.makeText(mContext, "删除失败，请稍后再试.", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        } else {
+                        } else {    //如果删除的评论不是本人的，那么弹出提示框
                             Toast.makeText(mContext, "不能删除他人评论", Toast.LENGTH_SHORT).show();
                         }
                     }
 
+                    //隐藏menu
                     popupMenu.dismiss();
                     return true;
                 }

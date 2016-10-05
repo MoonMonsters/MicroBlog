@@ -54,8 +54,6 @@ public class UserHomeWeiboFragment extends BaseFragment {
 //                    public void doSuccess(String data) {
 //                        AllMicroblog allMicroblog = new Gson().fromJson(data, AllMicroblog.class);
 //
-//                        LoggerUtil.i("USERHOME", allMicroblog.toString());
-//
 //                        mSingleMicroblogs.addAll(0, allMicroblog.getStatuses());
 //                        mMicroAdapter.notifyDataSetChanged();
 //                    }
