@@ -144,4 +144,9 @@ public interface BlogInterfaceConfig {
      * 回复一条评论
      */
     String REPLY_COMMENTS = "https://api.weibo.com/2/comments/reply.json";
+
+    /**
+     * 发布微博并且同时上传图片
+     */
+    String UPLOAD_STATUSES = "https://upload.api.weibo.com/2/statuses/upload.json";
 }

@@ -1,6 +1,7 @@
 package com.newer.newerblogging.utils;
 
 import android.content.Context;
+import android.os.Looper;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,8 +14,17 @@ import com.google.gson.Gson;
 import com.newer.newerblogging.application.NewerApplication;
 import com.newer.newerblogging.bean.UserInfo;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -494,6 +504,59 @@ public class NetConnectionUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 发布一条带图片的微博
+     *
+     * @param context     上下文帝乡
+     * @param status      微博内容
+     * @param netCallback 回调方法
+     */
+    public static void netToUploadStatues(final Context context, final String status, final String path,
+                                          final NetCallback netCallback) {
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    //HttpClient对象
+                    HttpClient httpClient = new DefaultHttpClient();
+                    //采用POST的请求方式
+                    HttpPost httpPost = new HttpPost(BlogInterfaceConfig.UPLOAD_STATUSES);
+                    //MultipartEntity对象，需要httpmime-4.1.1.jar文件。
+                    MultipartEntity multipartEntity = new MultipartEntity();
+                    //StringBody对象，参数
+                    StringBody param = new StringBody(getToken(context));
+                    multipartEntity.addPart("access_token", param);
+                    StringBody param1 = new StringBody(URLEncoder.encode(status, "UTF-8"));
+                    multipartEntity.addPart("status", param1);
+                    //filesPath为List<String>对象，里面存放的是需要上传的文件的地址
+
+                    //FileBody对象，需要上传的文件
+                    ContentBody file = new FileBody(new File(path));
+                    multipartEntity.addPart("pic", file);
+                    //将MultipartEntity对象赋值给HttpPost
+                    httpPost.setEntity(multipartEntity);
+                    HttpResponse response = null;
+
+                    //执行请求，并返回结果HttpResponse
+                    response = httpClient.execute(httpPost);
+
+                    if (response.getStatusLine().getStatusCode() == 200) {
+                        Looper.prepare();
+                        netCallback.doSuccess(Config.SUCCESS);
+                        Looper.loop();
+                    } else {
+                        Looper.prepare();
+                        netCallback.doFail(Config.FAIL);
+                        Looper.loop();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     /**

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.newer.newerblogging.R;
@@ -62,6 +63,7 @@ public class SettingFragment extends BaseFragment {
                 Glide.get(NewerApplication.getInstance()).clearMemory();
                 //清空表格数据
                 DeleteFromTable.clearMicroblog();
+                Toast.makeText(getContext(), "清除缓存成功", Toast.LENGTH_SHORT).show();
             }
         });
     }

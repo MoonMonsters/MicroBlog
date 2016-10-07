@@ -159,6 +159,7 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction()
                 .show(mFavoriteFragment)
                 .hide(mWeiboFragment)
+                .hide(mSettingFragment)
                 .commit();
         mCurrentFragment = mFavoriteFragment;
     }
