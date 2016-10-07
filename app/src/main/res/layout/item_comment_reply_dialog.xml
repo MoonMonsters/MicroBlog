@@ -16,6 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:gravity="start|top"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:maxLength="140"
             android:maxLines="5" />
     </android.support.design.widget.TextInputLayout>
@@ -24,7 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:gravity="right"
+        android:gravity="end"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:layout_marginEnd="10dp"
         android:orientation="horizontal">
 
